@@ -34,7 +34,6 @@ namespace Curso.Models {
         private static IList<Empleado> lista = new List<Empleado>();
         static EmpleadoRepository() {
             lista.Add(new Empleado(1, "Pepito", "Grillo"));
-            lista.Add(new Empleado(2, "Carmelo", "Coton"));
             lista.Add(new Empleado(3, "Capitan", "Tan"));
         }
         public IEnumerable<Empleado> GetAll() {

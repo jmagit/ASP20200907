@@ -12,8 +12,8 @@ namespace Curso.Controllers {
         public string Saluda() {
             return "Hola mundo";
         }
-        public string Adios(string id = "mundo") {
-            return "Adiós mundo";
+        public string Despide(string id = "mundo") {
+            return $"Adiós {id}";
         }
     }
 }
