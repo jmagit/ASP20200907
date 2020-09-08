@@ -24,7 +24,8 @@ namespace Curso.Controllers {
                 return View("Saluda");
             }
             ViewData["Nombre"] = id;
-            ViewData["Pinta"] = true;
+            //ViewData["Pinta"] = true;
+            ViewBag.Pinta = true;
             return View();
         }
 

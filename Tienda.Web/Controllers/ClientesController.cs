@@ -20,9 +20,9 @@ namespace Tienda.Web.Controllers
         }
 
         // GET: Clientes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int numpage = 0, int pagesize = 20)
         {
-            return View(await _context.Customer.ToListAsync());
+            return View(await _context.Customer.Skip(numpage * pagesize).Take(pagesize).ToListAsync());
         }
 
         // GET: Clientes/Details/5
