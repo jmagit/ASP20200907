@@ -9,11 +9,24 @@ namespace Curso.Controllers {
         public string Index() {
             return "Esto es una demo";
         }
-        public string Saluda() {
-            return "Hola mundo";
+        //public string Saluda() {
+        //    return "Hola mundo";
+        //}
+        //public string Despide(string id = "mundo") {
+        //    return $"Adiós {id}";
+        //}
+
+        public IActionResult Saluda() {
+            return View();
         }
-        public string Despide(string id = "mundo") {
-            return $"Adiós {id}";
+        public IActionResult Despide(string id = "mundo") {
+            if (id == "mundo") {
+                return View("Saluda");
+            }
+            ViewData["Nombre"] = id;
+            ViewData["Pinta"] = true;
+            return View();
         }
+
     }
 }
