@@ -47,6 +47,10 @@ namespace Curso.Controllers {
                 return NotFound();
             return View(modelo);
         }
+        [HttpPost]
+        public IActionResult Edit(int id, Cliente modelo) {
+            return View("Details", modelo);
+        }
 
     }
 }
