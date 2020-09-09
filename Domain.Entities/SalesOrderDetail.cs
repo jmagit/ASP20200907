@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domains.Entities
+namespace Domain.Entities
 {
     [Table("SalesOrderDetail", Schema = "SalesLT")]
     public partial class SalesOrderDetail

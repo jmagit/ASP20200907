@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Domains.Entities;
+using Domain.Entities;
 
-namespace Domains.Entities.Infrastructure.Data.UnitOfWork
+namespace Infrastructure.Data.UnitOfWork
 {
     public partial class TiendaDbContext : DbContext
     {
