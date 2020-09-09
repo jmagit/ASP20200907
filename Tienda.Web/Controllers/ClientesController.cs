@@ -10,14 +10,16 @@ using Infrastructure.Data.UnitOfWork;
 using Domain.Services.Contracts;
 
 namespace Tienda.Web.Controllers {
+    //[Route("empleado/[action]")]
     public class ClientesController : Controller {
-        private readonly TiendaDbContext _context;
         private readonly ICustomerDomainService service;
 
         public ClientesController(ICustomerDomainService service) {
             this.service = service;
         }
 
+        [Route("[controller]/{numpage=0}/{pagesize:int:min(2)=10}")]
+        [Route("[controller]/[action]/{numpage=0}/{pagesize:int:min(2)=10}")]
         // GET: Clientes
         public async Task<IActionResult> Index(int numpage = 0, int pagesize = 10) {
             //return View(service.Get<Customer>(o => o.FirstName.StartsWith("Ja")));
@@ -78,7 +80,6 @@ namespace Tienda.Web.Controllers {
             if (id != customer.CustomerId) {
                 return NotFound();
             }
-
             if (ModelState.IsValid) {
                 try {
                     service.Modify(customer);
@@ -91,6 +92,8 @@ namespace Tienda.Web.Controllers {
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ModelState.AddModelError("FirstName", "Este esta mal");
+            ModelState.AddModelError("", "En el sumario");
             return View(customer);
         }
 

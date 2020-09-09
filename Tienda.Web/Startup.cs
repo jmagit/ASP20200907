@@ -68,6 +68,16 @@ namespace Tienda.Web {
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
+                //endpoints.MapControllerRoute(
+                //    name: "mejor",
+                //    pattern: "empleado/{numpage}/{pagesize}",
+                //    defaults: new { controller = "Clientes", action = "Index" }
+                //    );
+                //endpoints.MapControllerRoute(
+                //    name: "mejor",
+                //    pattern: "empleado/{id}/{action=Index}",
+                //    defaults: new { controller = "Clientes" }
+                //    );
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -29,5 +29,11 @@ namespace Curso.Controllers {
             return View();
         }
 
+        [ActionName("Otro")]
+        public string Cotilla() {
+            return "Cotilla";
+
+        }
+
     }
 }

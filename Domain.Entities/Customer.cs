@@ -22,6 +22,7 @@ namespace Domain.Entities {
         [Display(Name = "Nombre")]
         public string FirstName { get; set; }
         [StringLength(50)]
+        [RegularExpression(@"^[A-Z]*\.?$", ErrorMessage = "Debe ser una letra en mayusculas y, opcionalmente, seguida de un punto")]
         public string MiddleName { get; set; }
         [Required]
         [StringLength(50)]
@@ -37,6 +38,7 @@ namespace Domain.Entities {
         [EmailAddress]
         public string EmailAddress { get; set; }
         [StringLength(25)]
+        [Phone]
         public string Phone { get; set; }
         [Required]
         [StringLength(128)]
