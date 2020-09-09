@@ -31,7 +31,6 @@ namespace Tienda.Web.Controllers {
             if (id == null) {
                 return NotFound();
             }
-
             var customer = service.GetOne(id.Value);
             if (customer == null) {
                 return NotFound();
@@ -121,6 +120,26 @@ namespace Tienda.Web.Controllers {
 
         private bool CustomerExists(int id) {
             return service.GetOne(id) != null;
+        }
+
+        public IActionResult Newpwd(int id, string nueva) {
+            if (String.IsNullOrWhiteSpace(nueva)) {
+                return BadRequest();
+            }
+            var customer = service.GetOne(id);
+            if (customer == null) {
+                return NotFound();
+            }
+            if(customer.EsValidaLaContraseña(nueva))
+                return RedirectToAction(nameof(Details),new { id } );
+
+            try {
+                service.CambiaContraseña(customer, nueva);
+            } catch (Exception ex) {
+                return BadRequest();
+            }
+            return RedirectToAction(nameof(Details),new { id } );
+
         }
     }
 

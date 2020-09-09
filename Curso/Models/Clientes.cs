@@ -45,7 +45,11 @@ namespace Curso.Models {
     }
 
     public class ClienteRepository : IClienteRepository {
-        private ApplicationDbContext db = new ApplicationDbContext(null);
+        private readonly ApplicationDbContext db;
+
+        public ClienteRepository(ApplicationDbContext db) {
+            this.db = db;
+        }
 
         public IEnumerable<Cliente> GetAll() {
             return db.Clientes.ToList();
@@ -75,7 +79,14 @@ namespace Curso.Models {
     }
 
     public class ClienteService : IClienteService {
-        private IClienteRepository repository = new ClienteRepository();
+        private readonly IClienteRepository repository;
+
+
+
+        public ClienteService(IClienteRepository repository) {
+            this.repository = repository;
+        }
+
         public IEnumerable<Cliente> GetAll() {
             return repository.GetAll();
         }

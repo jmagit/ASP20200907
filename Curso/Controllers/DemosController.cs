@@ -34,6 +34,10 @@ namespace Curso.Controllers {
             return "Cotilla";
 
         }
+        public PartialViewResult Ficha() {
+            // ...
+            return PartialView("_laparte");
+        }
 
     }
 }

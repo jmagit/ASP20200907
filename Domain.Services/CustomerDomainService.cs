@@ -16,5 +16,11 @@ namespace Domain.Services {
         public IList<Customer> GetPage(int numPage = 0, int pageSize = 20) {
             return (repository as ICustomerRepository).GetPage(numPage, pageSize);
         }
+
+        public void CambiaContraseña(Customer item, string nueva) {
+            item.CambiaContraseña(nueva);
+            repository.Modify(item);
+        }
+
     }
 }

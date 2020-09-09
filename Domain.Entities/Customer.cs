@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Domain.Entities {
     [Table("Customer", Schema = "SalesLT")]
@@ -60,6 +62,23 @@ namespace Domain.Entities {
             if (ModifiedDate.Date.CompareTo(DateTime.Today) == 1)
                 yield return new ValidationResult("No puede modificarlo a futuro", new[] { nameof(ModifiedDate) });
 
+        }
+
+        public void CambiaContraseña(string nueva) {
+            byte[] salt = new byte[6];
+            RNGCryptoServiceProvider rand = new RNGCryptoServiceProvider();
+            rand.GetBytes(salt);
+            PasswordSalt = Convert.ToBase64String(salt);
+            PasswordHash = GetHashPasswordRfc2898(nueva, PasswordSalt, lenght: 96);
+        }
+        public bool EsValidaLaContraseña(string introducida) {
+            return PasswordHash == GetHashPasswordRfc2898(introducida, PasswordSalt, lenght: 96);
+        }
+        public string GetHashPasswordRfc2898(string password, string salt, int iterationCount = 100, int lenght = 32) {
+            byte[] pwd = Encoding.UTF8.GetBytes(password);
+            byte[] _salt = Encoding.UTF8.GetBytes(salt.PadRight(8, '0'));
+            var pdb = new Rfc2898DeriveBytes(pwd, _salt, iterationCount);
+            return Convert.ToBase64String(pdb.GetBytes(lenght));
         }
     }
 }

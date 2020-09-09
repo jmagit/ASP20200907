@@ -7,17 +7,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Curso.Controllers {
     public class ClientesController : Controller {
+        private readonly IClienteService srv;
+
+        public ClientesController(IClienteService srv) {
+            this.srv = srv;
+        }
+
         public IActionResult Index() {
-            //var srv = new ClienteService();
-            //var rslt = srv.GetAll();
-            //return Json(rslt);
-            var srv = new ClienteService();
             var modelo = srv.GetAll();
+            //return Json(rslt);
             return View("List", modelo);
         }
 
         public IActionResult List(int? id) {
-            var srv = new ClienteService();
             var modelo = srv.GetAll();
             return View(modelo);
 
@@ -33,7 +35,6 @@ namespace Curso.Controllers {
             //}
         }
         public IActionResult Details(int id) {
-            var srv = new ClienteService();
             var modelo = srv.Get(id);
             if (modelo == null)
                 return NotFound();
@@ -41,7 +42,6 @@ namespace Curso.Controllers {
         }
 
         public IActionResult Edit(int id) {
-            var srv = new ClienteService();
             var modelo = srv.Get(id);
             if (modelo == null)
                 return NotFound();
