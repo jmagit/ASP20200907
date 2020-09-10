@@ -18,13 +18,27 @@ namespace Tienda.Web.Controllers {
             this.service = service;
         }
 
-        [Route("[controller]/{numpage=0}/{pagesize:int:min(2)=10}")]
-        [Route("[controller]/[action]/{numpage=0}/{pagesize:int:min(2)=10}")]
+        [Route("[controller]/{numpage=0}/{pagesize:int:min(2)=20}")]
+        [Route("[controller]/[action]/{numpage=0}/{pagesize:int:min(2)=20}")]
         // GET: Clientes
-        public async Task<IActionResult> Index(int numpage = 0, int pagesize = 10) {
+        public async Task<IActionResult> Index(int numpage = 0, int pagesize = 20) {
             //return View(service.Get<Customer>(o => o.FirstName.StartsWith("Ja")));
+
+            ViewBag.PagActual = numpage;
+            ViewBag.UltimaPagina = (int)Math.Floor((double)service.GetAll().Count / pagesize);
             return View(service.GetPage(numpage, pagesize));
         }
+
+        public async Task<IActionResult> ConAjax(int numpage = 0, int pagesize = 20) {
+            return View();
+        }
+        public async Task<PartialViewResult> Pagina(int numpage = 0, int pagesize = 9) {
+            ViewBag.PagActual = numpage;
+            ViewBag.UltimaPagina = (int)Math.Floor((double)service.GetAll().Count / pagesize);
+            return PartialView("_list", service.GetPage(numpage, pagesize));
+        }
+
+
 
         // GET: Clientes/Details/5
         public async Task<IActionResult> Details(int? id) {
@@ -130,8 +144,8 @@ namespace Tienda.Web.Controllers {
             if (customer == null) {
                 return NotFound();
             }
-            if(customer.EsValidaLaContraseña(nueva))
-                return RedirectToAction(nameof(Details),new { id } );
+            //if(customer.EsValidaLaContraseña(nueva))
+            //    return RedirectToAction(nameof(Details),new { id } );
 
             try {
                 service.CambiaContraseña(customer, nueva);

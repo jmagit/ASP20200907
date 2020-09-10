@@ -4,79 +4,32 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Catálogo</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ListPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Size)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Weight)
-            <th>
-                @Html.DisplayNameFor(model => model.ThumbNailPhoto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductCategory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductModel)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-             <td>
-                @Html.DisplayFor(modelItem => item.ListPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Weight)
-            </td>
-            <td>
-                <img src="~/Productos/ThumbNailPhoto/@item.ProductId">
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductCategory.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductModel.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container-fluid">
+    <div class="row card-columns">
+        @foreach (var item in Model) {
+            <div class="card " style="max-width: 18rem;">
+                <img src="~/Productos/ThumbNailPhoto/@item.ProductId" class="card-img" alt="@item.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@item.ProductCategory.Name</h6>
+                    <p class="card-text">
+                        <b>@Html.DisplayNameFor(model => model.ProductNumber):</b> @Html.DisplayFor(modelItem => item.ProductNumber)<br />
+                        <b>@Html.DisplayNameFor(model => model.Size):</b> @Html.DisplayFor(modelItem => item.Size)
+                        <b>@Html.DisplayNameFor(model => model.Weight):</b> @Html.DisplayFor(modelItem => item.Weight)<br />
+                        <b>@Html.DisplayNameFor(model => model.ListPrice):</b> @Html.DisplayFor(modelItem => item.ListPrice) €<br />
+
+
+                    </p>
+                    <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-primary">Ver mas</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<partial name="_Paginacion" />

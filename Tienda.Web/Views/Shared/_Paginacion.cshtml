@@ -1,0 +1,17 @@
+﻿<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-end">
+        <li class="page-item@(ViewBag.PagActual == 0 ? " disabled" : "")">
+            <a asp-route-numpage="0" class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        @for (var pag = 0; pag <= ViewBag.UltimaPagina; pag++) {
+            <li class="page-item@(ViewBag.PagActual == pag ? " active" : "")"><a class="page-link" asp-route-numpage="@pag">@(pag + 1)</a></li>
+        }
+        <li class="page-item@(ViewBag.PagActual == ViewBag.UltimaPagina ? " disabled" : "")">
+            <a asp-route-numpage="@ViewBag.UltimaPagina" class="page-link" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

@@ -21,9 +21,14 @@ namespace Tienda.Web.Controllers
         }
 
         // GET: Productos
-        public async Task<IActionResult> Index()
+        [Route("[controller]/[action]/{numpage=0}/{pagesize:int:min(2)=9}")]
+        public async Task<IActionResult> Index(int numpage = 0, int pagesize = 9)
         {
-            var tiendaDbContext = _context.Product.Include(p => p.ProductCategory).Include(p => p.ProductModel);
+            ViewBag.PagActual = numpage;
+            ViewBag.UltimaPagina = (int)Math.Floor((double)_context.Product.Count() / pagesize);
+            var tiendaDbContext = _context.Product
+                .Skip(numpage * pagesize).Take(pagesize)
+                .Include(p => p.ProductCategory).Include(p => p.ProductModel);
             return View(await tiendaDbContext.ToListAsync());
         }
 

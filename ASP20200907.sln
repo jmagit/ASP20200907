@@ -5,23 +5,33 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curso", "Curso\Curso.csproj", "{42B934CA-7A7E-4F00-A2BB-EE35E5CF3590}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Data", "Infrastructure.Data\Infrastructure.Data.csproj", "{51C45F48-7C42-4BC5-A94C-72B6FE82B7FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Data", "Infrastructure.Data\Infrastructure.Data.csproj", "{51C45F48-7C42-4BC5-A94C-72B6FE82B7FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tienda.Web", "Tienda.Web\Tienda.Web.csproj", "{FDB214FF-4208-4218-9CDB-EE2A75F88F62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tienda.Web", "Tienda.Web\Tienda.Web.csproj", "{FDB214FF-4208-4218-9CDB-EE2A75F88F62}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Entities", "Domain.Entities\Domain.Entities.csproj", "{4631DD5F-6A88-48DD-A80C-D537A7EBCAB5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Services", "Domain.Services\Domain.Services.csproj", "{AB408FBA-D392-4E39-ABFA-44C0E725DEF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Core", "Domain.Core\Domain.Core.csproj", "{EE983B37-C188-4A1F-87BC-3DEE7A8E9525}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Core", "Domain.Core\Domain.Core.csproj", "{EE983B37-C188-4A1F-87BC-3DEE7A8E9525}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Services.Core", "Domain.Services.Core\Domain.Services.Core.csproj", "{5C7494C6-AD07-4D64-AC44-58EC811228F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Services.Core", "Domain.Services.Core\Domain.Services.Core.csproj", "{5C7494C6-AD07-4D64-AC44-58EC811228F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Data.Core", "Infrastructure.Data.Core\Infrastructure.Data.Core.csproj", "{DB6AE622-3B8A-4709-A665-DF29A38C9FD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Data.Core", "Infrastructure.Data.Core\Infrastructure.Data.Core.csproj", "{DB6AE622-3B8A-4709-A665-DF29A38C9FD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Data.Contracts", "Infrastructure.Data.Contracts\Infrastructure.Data.Contracts.csproj", "{AD5F5D79-0C14-460F-9318-299E3182E8EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Data.Contracts", "Infrastructure.Data.Contracts\Infrastructure.Data.Contracts.csproj", "{AD5F5D79-0C14-460F-9318-299E3182E8EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Services.Contracts", "Domain.Services.Contracts\Domain.Services.Contracts.csproj", "{848017DC-2741-45D1-B838-889D617ED98E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Services.Contracts", "Domain.Services.Contracts\Domain.Services.Contracts.csproj", "{848017DC-2741-45D1-B838-889D617ED98E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tienda", "Tienda", "{887519FE-B0F5-40EB-A041-DCFCAF0E2D3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Presentacion", "1-Presentacion", "{F5EB72C7-F95D-4E62-B67C-D745AE78496E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Aplicacion", "2-Aplicacion", "{27D0863F-70F6-4E71-9694-F88FF3F62117}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Dominio", "3-Dominio", "{B4306B26-6E72-4C60-9DE1-9D6FB9986357}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Infraestructura", "4-Infraestructura", "{77E72858-A7B8-45CD-8FDF-15F64AC0B087}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +82,21 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{51C45F48-7C42-4BC5-A94C-72B6FE82B7FA} = {77E72858-A7B8-45CD-8FDF-15F64AC0B087}
+		{FDB214FF-4208-4218-9CDB-EE2A75F88F62} = {F5EB72C7-F95D-4E62-B67C-D745AE78496E}
+		{4631DD5F-6A88-48DD-A80C-D537A7EBCAB5} = {B4306B26-6E72-4C60-9DE1-9D6FB9986357}
+		{AB408FBA-D392-4E39-ABFA-44C0E725DEF2} = {B4306B26-6E72-4C60-9DE1-9D6FB9986357}
+		{EE983B37-C188-4A1F-87BC-3DEE7A8E9525} = {B4306B26-6E72-4C60-9DE1-9D6FB9986357}
+		{5C7494C6-AD07-4D64-AC44-58EC811228F6} = {B4306B26-6E72-4C60-9DE1-9D6FB9986357}
+		{DB6AE622-3B8A-4709-A665-DF29A38C9FD6} = {77E72858-A7B8-45CD-8FDF-15F64AC0B087}
+		{AD5F5D79-0C14-460F-9318-299E3182E8EA} = {77E72858-A7B8-45CD-8FDF-15F64AC0B087}
+		{848017DC-2741-45D1-B838-889D617ED98E} = {B4306B26-6E72-4C60-9DE1-9D6FB9986357}
+		{F5EB72C7-F95D-4E62-B67C-D745AE78496E} = {887519FE-B0F5-40EB-A041-DCFCAF0E2D3C}
+		{27D0863F-70F6-4E71-9694-F88FF3F62117} = {887519FE-B0F5-40EB-A041-DCFCAF0E2D3C}
+		{B4306B26-6E72-4C60-9DE1-9D6FB9986357} = {887519FE-B0F5-40EB-A041-DCFCAF0E2D3C}
+		{77E72858-A7B8-45CD-8FDF-15F64AC0B087} = {887519FE-B0F5-40EB-A041-DCFCAF0E2D3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECC7D768-8795-44E5-9205-1C63CEA5F002}

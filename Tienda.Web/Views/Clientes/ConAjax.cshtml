@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Domain.Entities.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Clientes</h1>
+
+<div id="rsltAjax">
+</div>
+
+
+
+@for (var pag = 0; pag <= ViewBag.UltimaPagina; pag++) {
+    <li class="page-item@(ViewBag.PagActual == pag ? " active" : "")"><a class="page-link" asp-route-numpage="@pag">@(pag+1)</a></li>
+}
+
+@section Scripts {
+    <script>
+        function procesaPartial(data) {
+            $("#rsltAjax").html(data);
+        }
+
+
+    </script>
+}
