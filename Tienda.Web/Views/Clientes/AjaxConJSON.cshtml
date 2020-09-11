@@ -1,0 +1,183 @@
+﻿@model IEnumerable<Domain.Entities.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container-fluid">
+    <h1>Clientes</h1>
+    <div id="listado"></div>
+    <form id="frmPrincipal" class="form-horizontal"></form>
+</div>
+<script id="tmplListado" type="x-tmpl-mustache">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Nombre</th>
+                <th>MiddleName</th>
+                <th>Apellidos</th>
+                <td class="text-right"><input type="button" class="btn btn-success" value="Añadir" onclick="Clientes.añadir()"></td>
+            </tr>
+        </thead>
+        {{#filas}}
+        <tr>
+            <td>{{Title}}</td>
+            <td><buton type="button" class="btn btn-link btn-lg" onclick="Clientes.ver({{CustomerId}})">{{FirstName}}</buton></td>
+            <td>{{MiddleName}}</td>
+            <td>{{LastName}}</td>
+            <td class="btn-group float-right">
+                <button class="btn btn-info" onclick="Clientes.ver({{CustomerId}});">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-success" onclick="Clientes.editar({{CustomerId}});">
+                    <i class="fas fa-pen"></i>
+                </button>
+                <button class="btn btn-danger" onclick="Clientes.borrar({{CustomerId}});">
+                    <i class="far fa-trash-alt"></i>
+                </button>
+            </td>
+        </tr>
+        {{/filas}}
+    </table>
+</script>
+<script id="tmplDetalle" type="x-tmpl-mustache">
+    <div class="container">
+        <dl class="row">
+            <dt class="col-sm-2">NameStyle</dt>
+            <dd class="col-sm-10"><input name="NameStyle" class="check-box" disabled="disabled" type="checkbox" /></dd>
+            <dt class="col-sm-2">Title</dt>
+            <dd class="col-sm-10">{{item.Title}}</dd>
+            <dt class="col-sm-2">Nombre</dt>
+            <dd class="col-sm-10">{{item.FirstName}}</dd>
+            <dt class="col-sm-2">MiddleName</dt>
+            <dd class="col-sm-10">{{item.MiddleName}}</dd>
+            <dt class="col-sm-2">Apellidos</dt>
+            <dd class="col-sm-10">{{item.LastName}}</dd>
+            <dt class="col-sm-2">Suffix</dt>
+            <dd class="col-sm-10">{{item.Suffix}}</dd>
+            <dt class="col-sm-2">CompanyName</dt>
+            <dd class="col-sm-10">{{item.CompanyName}}</dd>
+            <dt class="col-sm-2">SalesPerson</dt>
+            <dd class="col-sm-10">{{item.SalesPerson}}</dd>
+            <dt class="col-sm-2">EmailAddress</dt>
+            <dd class="col-sm-10">{{item.EmailAddress}}</dd>
+            <dt class="col-sm-2">Phone</dt>
+            <dd class="col-sm-10">{{item.Phone}}</dd>
+            <dt class="col-sm-2">PasswordHash</dt>
+            <dd class="col-sm-10">{{item.PasswordHash}}</dd>
+            <dt class="col-sm-2">PasswordSalt</dt>
+            <dd class="col-sm-10">{{item.PasswordSalt}}</dd>
+            <dt class="col-sm-2">Rowguid</dt>
+            <dd class="col-sm-10">{{item.Rowguid}}</dd>
+            <dt class="col-sm-2">ModifiedDate</dt>
+            <dd class="col-sm-10">{{item.ModifiedDate}}</dd>
+        </dl>
+        <div>
+            <input class="btn btn-secondary" type="button" value="Volver" onclick="Clientes.volver()">
+        </div>
+    </div>
+</script>
+<script id="tmplFormulario" type="x-tmpl-mustache">
+    <input type="hidden" name="CustomerId" />
+    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" data-val="true" data-val-required="The NameStyle field is required." id="NameStyle" name="NameStyle" value="true" /> NameStyle
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="Title">Title</label>
+        <input class="form-control" type="text" data-val="true" data-val-length="The field Title must be a string with a maximum length of 8." data-val-length-max="8" id="Title" maxlength="8" name="Title" value="Mr." />
+        <span class="text-danger field-validation-valid" data-valmsg-for="Title" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="FirstName">Nombre</label>
+        <input class="form-control" type="text" data-val="true" data-val-length="The field Nombre must be a string with a maximum length of 50." data-val-length-max="50" data-val-required="The Nombre field is required." id="FirstName" maxlength="50" name="FirstName" value="00000" />
+        <span class="text-danger field-validation-valid" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="MiddleName">MiddleName</label>
+        <input class="form-control" type="text" data-val="true" data-val-length="The field MiddleName must be a string with a maximum length of 50." data-val-length-max="50" data-val-regex="Debe ser una letra en mayusculas y, opcionalmente, seguida de un punto" data-val-regex-pattern="^[A-Z]*\.?$" id="MiddleName" maxlength="50" name="MiddleName" value="A." />
+        <span class="text-danger field-validation-valid" data-valmsg-for="MiddleName" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="LastName">Apellidos</label>
+        <input class="form-control" type="text" data-val="true" data-val-length="The field Apellidos must be a string with a maximum length of 50." data-val-length-max="50" data-val-required="The Apellidos field is required." id="LastName" maxlength="50" name="LastName" value="11" />
+        <span class="text-danger field-validation-valid" data-valmsg-for="LastName" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="Suffix">Suffix</label>
+        <input class="form-control" type="text" data-val="true" data-val-length="The field Suffix must be a string with a maximum length of 10." data-val-length-max="10" id="Suffix" maxlength="10" name="Suffix" value="" />
+        <span class="text-danger field-validation-valid" data-valmsg-for="Suffix" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="CompanyName">CompanyName</label>
+        <input class="form-control" type="text" data-val="true" data-val-length="The field CompanyName must be a string with a maximum length of 128." data-val-length-max="128" id="CompanyName" maxlength="128" name="CompanyName" value="" />
+        <span class="text-danger field-validation-valid" data-valmsg-for="CompanyName" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="SalesPerson">SalesPerson</label>
+        <input class="form-control" type="text" data-val="true" data-val-length="The field SalesPerson must be a string with a maximum length of 256." data-val-length-max="256" id="SalesPerson" maxlength="256" name="SalesPerson" value="" />
+        <span class="text-danger field-validation-valid" data-valmsg-for="SalesPerson" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="EmailAddress">EmailAddress</label>
+        <input class="form-control" type="email" data-val="true" data-val-email="The EmailAddress field is not a valid e-mail address." data-val-length="The field EmailAddress must be a string with a maximum length of 50." data-val-length-max="50" id="EmailAddress" maxlength="50" name="EmailAddress" value="111@ss" />
+        <span class="text-danger field-validation-valid" data-valmsg-for="EmailAddress" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="Phone">Phone</label>
+        <input class="form-control" type="tel" data-val="true" data-val-length="The field Phone must be a string with a maximum length of 25." data-val-length-max="25" data-val-phone="The Phone field is not a valid phone number." id="Phone" maxlength="25" name="Phone" value="" />
+        <span class="text-danger field-validation-valid" data-valmsg-for="Phone" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="PasswordHash">PasswordHash</label>
+        <input class="form-control" type="text" data-val="true" data-val-length="The field PasswordHash must be a string with a maximum length of 128." data-val-length-max="128" data-val-required="The PasswordHash field is required." id="PasswordHash" maxlength="128" name="PasswordHash" value="oVSjXjtSxVyvbaFdzl6wDxoZq4LSZ0Uz7sEL2M/7VkISxG0zJIfpSDyxcTMHO2wmrPtAb0AGf1R67h2Mqc6aKOoC7BHqKR87dcbQ&#x2B;9mt5dxqFFiMxejxWGqvKQ1EJXPl" />
+        <span class="text-danger field-validation-valid" data-valmsg-for="PasswordHash" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="PasswordSalt">PasswordSalt</label>
+        <input class="form-control" type="text" data-val="true" data-val-length="The field PasswordSalt must be a string with a maximum length of 10." data-val-length-max="10" data-val-required="The PasswordSalt field is required." id="PasswordSalt" maxlength="10" name="PasswordSalt" value="ycmGIWDw" />
+        <span class="text-danger field-validation-valid" data-valmsg-for="PasswordSalt" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="Rowguid">Rowguid</label>
+        <input class="form-control" type="text" data-val="true" data-val-required="The Rowguid field is required." id="Rowguid" name="Rowguid" value="d773d164-e21e-43c4-99bf-b171baf5dc42" />
+        <span class="text-danger field-validation-valid" data-valmsg-for="Rowguid" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="ModifiedDate">ModifiedDate</label>
+        <input class="form-control" type="datetime-local" data-val="true" data-val-required="The ModifiedDate field is required." id="ModifiedDate" name="ModifiedDate" value="2020-09-02T19:47:14.073" />
+        <span class="text-danger field-validation-valid" data-valmsg-for="ModifiedDate" data-valmsg-replace="true"></span>
+    </div>
+    <div class="form-group">
+        <input type="button" class="btn btn-success" value="Enviar" id="btnEnviar">
+        <input type="button" class="btn btn-info" value="Volver" id="btnVolver">
+    </div>
+</script>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/mustache.js/mustache.js"></script>
+    <script src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
+    <script src="~/js/clientes.js"></script>
+    <script>
+        $(document).ready(function () {
+            Clientes.listar();
+            $('#frmPrincipal').hide();
+            $('#frmPrincipal').html(Mustache.render($('#tmplFormulario').html()));
+            $('input[name]').change(function (ev) {
+                Clientes.validar(ev.target.name);
+            });
+            $('#btnVolver').click(Clientes.volver);
+            $(document)
+                .ajaxStart(function () {
+                    $('#trabajandoAJAX').show();
+                }).ajaxStop(function () {
+                    $('#trabajandoAJAX').hide();
+                });
+        });
+    </script>
+}

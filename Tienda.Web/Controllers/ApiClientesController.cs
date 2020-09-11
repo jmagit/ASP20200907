@@ -21,10 +21,19 @@ namespace Tienda.Web.Controllers
             _context = context;
         }
 
-        // GET: api/ApiClientes
+        // GET: api/Clientes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomer()
+        public async Task<Object> GetCustomer(int? numpage, int pagesize = 8)
         {
+            if(numpage.HasValue) {
+                return new {
+                    numPag = (int)Math.Floor((double)_context.Customer.Count() / pagesize),
+                    listado = await _context.Customer
+                        .Skip(numpage.Value * pagesize).Take(pagesize)
+                        .Select(o => new { o.CustomerId, o.Title, o.FirstName, o.MiddleName, o.LastName})
+                        .ToListAsync()
+                };
+            }
             return await _context.Customer.ToListAsync();
         }
 

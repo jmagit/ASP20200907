@@ -18,10 +18,10 @@ namespace Tienda.Web.Controllers {
             this.service = service;
         }
 
-        [Route("[controller]/{numpage=0}/{pagesize:int:min(2)=20}")]
-        [Route("[controller]/[action]/{numpage=0}/{pagesize:int:min(2)=20}")]
+        [Route("[controller]/{numpage=0}/{pagesize:int:min(2)=30}")]
+        [Route("[controller]/[action]/{numpage=0}/{pagesize:int:min(2)=30}")]
         // GET: Clientes
-        public async Task<IActionResult> Index(int numpage = 0, int pagesize = 20) {
+        public async Task<IActionResult> Index(int numpage = 0, int pagesize = 30) {
             //return View(service.Get<Customer>(o => o.FirstName.StartsWith("Ja")));
 
             ViewBag.PagActual = numpage;
@@ -29,15 +29,18 @@ namespace Tienda.Web.Controllers {
             return View(service.GetPage(numpage, pagesize));
         }
 
-        public async Task<IActionResult> ConAjax(int numpage = 0, int pagesize = 20) {
+        public async Task<IActionResult> AjaxConPartialView() {
+            int pagesize = 30;
+            ViewBag.UltimaPagina = (int)Math.Floor((double)service.GetAll().Count / pagesize);
             return View();
         }
-        public async Task<PartialViewResult> Pagina(int numpage = 0, int pagesize = 9) {
-            ViewBag.PagActual = numpage;
-            ViewBag.UltimaPagina = (int)Math.Floor((double)service.GetAll().Count / pagesize);
+        public async Task<PartialViewResult> Pagina(int numpage = 0, int pagesize = 30) {
             return PartialView("_list", service.GetPage(numpage, pagesize));
         }
 
+        public async Task<IActionResult> AjaxConJSON() {
+            return View();
+        }
 
 
         // GET: Clientes/Details/5

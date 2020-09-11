@@ -40,7 +40,7 @@ namespace Domain.Entities {
         [EmailAddress]
         public string EmailAddress { get; set; }
         [StringLength(25)]
-        [Phone]
+        //[Phone]
         public string Phone { get; set; }
         [Required]
         [StringLength(128)]

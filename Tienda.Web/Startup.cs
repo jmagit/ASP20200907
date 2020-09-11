@@ -20,6 +20,7 @@ using Domain.Services.Core;
 using Domain.Services;
 using Infrastructure.Data.Contracts.Repositories;
 using Domain.Services.Contracts;
+using Newtonsoft.Json.Serialization;
 
 namespace Tienda.Web {
     public class Startup {
@@ -41,12 +42,15 @@ namespace Tienda.Web {
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductDomainService, ProductDomainService>();
 
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ICustomerDomainService, CustomerDomainService>();
+
+            services.AddControllers().AddNewtonsoftJson(options => {
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Domain.Entities.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Clientes</h1>
+
+<div class="btn-group" role="group" aria-label="Basic example">
+    @for (var pag = 0; pag <= ViewBag.UltimaPagina; pag++) {
+        <input type="button" class="btn btn-secondary btn-paginacion" value="@(pag+1)" />
+    }
+</div>
+<div id="rsltAjax">
+</div>
+
+
+@section Scripts {
+    <script>
+        function pidePagina(num) {
+            $.ajax({
+                url: '/clientes/pagina?numpage=' + (num - 1),
+                dataType: 'text',
+            }).then(
+                function (resp) {
+                    $("#rsltAjax").html(resp);
+                },
+                function (jqXHR, textStatus, errorThrown) {
+                    $("#rsltAjax").html('<div class="alert alert-danger" role="alert">ERROR: ' + textStatus + '</div>');
+                }
+            );
+        }
+        $(document).ready(function () {
+            $('.btn-paginacion').click(function (ev) {
+                pidePagina(ev.target.value);
+            });
+            pidePagina(1);
+        });
+    </script>
+}
