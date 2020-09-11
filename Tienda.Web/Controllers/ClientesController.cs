@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Infrastructure.Data.UnitOfWork;
 using Domain.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tienda.Web.Controllers {
     //[Route("empleado/[action]")]
@@ -29,6 +30,7 @@ namespace Tienda.Web.Controllers {
             return View(service.GetPage(numpage, pagesize));
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AjaxConPartialView() {
             int pagesize = 30;
             ViewBag.UltimaPagina = (int)Math.Floor((double)service.GetAll().Count / pagesize);
@@ -57,6 +59,7 @@ namespace Tienda.Web.Controllers {
         }
 
         // GET: Clientes/Create
+        [Authorize]
         public IActionResult Create() {
             return View();
         }
@@ -75,6 +78,7 @@ namespace Tienda.Web.Controllers {
         }
 
         // GET: Clientes/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id) {
             if (id == null) {
                 return NotFound();
@@ -92,6 +96,7 @@ namespace Tienda.Web.Controllers {
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("CustomerId,NameStyle,Title,FirstName,MiddleName,LastName,Suffix,CompanyName,SalesPerson,EmailAddress,Phone,PasswordHash,PasswordSalt,Rowguid,ModifiedDate")] Customer customer) {
             if (id != customer.CustomerId) {
                 return NotFound();
@@ -114,6 +119,7 @@ namespace Tienda.Web.Controllers {
         }
 
         // GET: Clientes/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id) {
             if (id == null) {
                 return NotFound();
@@ -128,6 +134,7 @@ namespace Tienda.Web.Controllers {
         }
 
         // POST: Clientes/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id) {

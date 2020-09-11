@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Infrastructure.Data.UnitOfWork;
 using Domain.Services.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tienda.Web.Controllers
 {
+    [Authorize]
     public class ProductosController : Controller
     {
         private readonly TiendaDbContext _context;
