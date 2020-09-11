@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Infrastructure.Data.UnitOfWork;
+using Tienda.Web.Models;
 
 namespace Tienda.Web.Controllers
 {
@@ -34,12 +35,12 @@ namespace Tienda.Web.Controllers
                         .ToListAsync()
                 };
             }
-            return await _context.Customer.ToListAsync();
+            return await _context.Customer.Select(o => CustomerDTO.From(o)).ToListAsync();
         }
 
         // GET: api/ApiClientes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<CustomerDTO>> GetCustomer(int id)
         {
             var customer = await _context.Customer.FindAsync(id);
 
@@ -48,33 +49,35 @@ namespace Tienda.Web.Controllers
                 return NotFound();
             }
 
-            return customer;
+            return CustomerDTO.From(customer);
         }
 
         // POST: api/ApiClientes
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<CustomerDTO>> PostCustomer(CustomerDTO customer)
         {
-            _context.Customer.Add(customer);
+            var entity = CustomerDTO.From(customer);
+            _context.Customer.Add(entity);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetCustomer", new { id = entity.CustomerId }, CustomerDTO.From(entity));
         }
 
         // PUT: api/ApiClientes/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutCustomer(int id, CustomerDTO customer)
         {
             if (id != customer.CustomerId)
             {
                 return BadRequest();
             }
+            var entity = await _context.Customer.FindAsync(id);
+            if (entity == null) {
+                return NotFound();
+            }
+            customer.To(entity);
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(entity).State = EntityState.Modified;
 
             try
             {
@@ -94,10 +97,36 @@ namespace Tienda.Web.Controllers
 
             return NoContent();
         }
+        // PUT: api/ApiClientes/5
+        [HttpPut("{id}/changepwd")]
+        public async Task<IActionResult> PutCustomer(int id, string nueva) {
+            //if (id != customer.CustomerId) {
+            //    return BadRequest();
+            //}
+            //var entity = await _context.Customer.FindAsync(id);
+            //if (entity == null) {
+            //    return NotFound();
+            //}
+            //customer.To(entity);
+
+            //_context.Entry(entity).State = EntityState.Modified;
+
+            //try {
+            //    await _context.SaveChangesAsync();
+            //} catch (DbUpdateConcurrencyException) {
+            //    if (!CustomerExists(id)) {
+            //        return NotFound();
+            //    } else {
+            //        throw;
+            //    }
+            //}
+
+            return NoContent();
+        }
 
         // DELETE: api/ApiClientes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Customer>> DeleteCustomer(int id)
+        public async Task<ActionResult<CustomerDTO>> DeleteCustomer(int id)
         {
             var customer = await _context.Customer.FindAsync(id);
             if (customer == null)
@@ -108,7 +137,7 @@ namespace Tienda.Web.Controllers
             _context.Customer.Remove(customer);
             await _context.SaveChangesAsync();
 
-            return customer;
+            return CustomerDTO.From(customer);
         }
 
         private bool CustomerExists(int id)

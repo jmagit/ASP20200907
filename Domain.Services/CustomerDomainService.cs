@@ -19,6 +19,7 @@ namespace Domain.Services {
 
         public void CambiaContraseña(Customer item, string nueva) {
             item.CambiaContraseña(nueva);
+            item.ModifiedDate = DateTime.Now;
             repository.Modify(item);
         }
 

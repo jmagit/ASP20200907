@@ -172,12 +172,6 @@
                 Clientes.validar(ev.target.name);
             });
             $('#btnVolver').click(Clientes.volver);
-            $(document)
-                .ajaxStart(function () {
-                    $('#trabajandoAJAX').show();
-                }).ajaxStop(function () {
-                    $('#trabajandoAJAX').hide();
-                });
         });
     </script>
 }
