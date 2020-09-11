@@ -7,6 +7,8 @@ using Moq;
 using Domain.Services.Contracts;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Tienda.Web.Controllers.Tests {
     [TestClass()]
@@ -17,13 +19,20 @@ namespace Tienda.Web.Controllers.Tests {
         }
 
         [TestMethod()]
-        public async void IndexTest() {
+        public async Task IndexTest() {
+            var lst = new[] { 
+                new Customer(), new Customer(), new Customer(), 
+                new Customer(), new Customer(), new Customer() 
+            };
             var mock = new Mock<ICustomerDomainService>();
-            mock.Setup(m => m.GetPage(0, 30)).Returns(new List<Customer>()); ;
+            mock.Setup(m => m.GetAll()).Returns(new List<Customer>(lst)); ;
+            mock.Setup(m => m.GetPage(2, 5)).Returns(new List<Customer>(lst)); ;
             var contr = new ClientesController(mock.Object);
 
-            var rslt = await contr.Index(0, 30) as ViewResult;
-            Assert.AreEqual(0, rslt.ViewData["PagActual"]);
+            var rslt = await contr.Index(2, 5) as ViewResult;
+            Assert.AreEqual(2, rslt.ViewData["PagActual"]);
+            Assert.AreEqual(1, rslt.ViewData["UltimaPagina"]);
+            Assert.AreEqual(6, (rslt.Model as IEnumerable<Customer>).Count());
         }
 
         [TestMethod()]
